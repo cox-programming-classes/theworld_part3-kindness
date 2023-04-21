@@ -72,6 +72,13 @@ public class Area
     /// <summary>
     /// TODO:  Write a RemoveItem method that removes an item from the area so that it is not duplicated when picked up [Easy]
     /// </summary>
+    
+    ///DO IN COMMAND PARSER
+    public void RemoveItem (UniqueName uniqueName)
+    {
+        if (_player.HasItem(uniqueName))
+            _items.Remove(uniqueName);
+    }
 
     public ReadOnlyDictionary<UniqueName, Creature> Creatures => new(_creatures);
     public void AddCreature(UniqueName uniqueName, Creature creature)

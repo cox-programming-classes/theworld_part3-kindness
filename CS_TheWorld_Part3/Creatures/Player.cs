@@ -46,8 +46,6 @@ public class Player : ICreature
         
     }
 
-    
-
 
     private Dictionary<EquipSlot, IEquipable> _equipment = new();
     public ReadOnlyDictionary<EquipSlot, IEquipable> Equipment => _equipment.AsReadOnly();
@@ -81,6 +79,26 @@ public class Player : ICreature
         }
     };
     
+    private readonly Dictionary<UniqueName, Item> _backpack = new();
+
+    public void AddItem(UniqueName uniqueName, Item item)
+    {
+        if (_backpack.ContainsKey(uniqueName))
+            throw new WorldException<Player>(this, $"{uniqueName} already exists in this area's _Items");
+        
+        _backpack.Add(uniqueName, item);
+    }
+
+    public bool HasItem(UniqueName uniqueName) => _backpack.ContainsKey(uniqueName);
+    
+    public Item? GetItem(UniqueName uniqueName)
+    {
+        if (!this.HasItem(uniqueName))
+            return null;
+
+        return _backpack[uniqueName];
+    }
+
     // TODO:  Create a way for players to have special abilities that can be used in or out of combat. [Extremely Difficult]
     // TODO:  Part 1:  Define what a "special ability" is. [Moderate]
     // TODO:  Part 2:  Define a way for the player to acquire abilities [Moderate~Difficult]
