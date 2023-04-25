@@ -72,11 +72,11 @@ public class Area
     /// <summary>
     /// TODO:  Write a RemoveItem method that removes an item from the area so that it is not duplicated when picked up [Easy]
     /// </summary>
+    ///
     
-    ///DO IN COMMAND PARSER
     public void RemoveItem (UniqueName uniqueName)
     {
-        if (_player.HasItem(uniqueName))
+        if (this.HasItem(uniqueName))
             _items.Remove(uniqueName);
     }
 

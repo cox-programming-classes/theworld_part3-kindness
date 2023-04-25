@@ -44,7 +44,7 @@ public static partial class Program
         {
             Name = "Giant Moth",
             Description = "Holy shit that things huge!",
-            Items= new(new Dictionary<UniqueName, ICarryable>()
+            Backpack= new(new Dictionary<UniqueName, ICarryable>()
             {
                 {
                     "sword",
@@ -73,7 +73,7 @@ public static partial class Program
         {
             Name="Salamander",
             Description = "A lizard looking critter that has a flickering flame down its spine.",
-            Items = new(new Dictionary<UniqueName, ICarryable>()
+            Backpack = new(new Dictionary<UniqueName, ICarryable>()
             {   
                 {
                     "firestone", 
@@ -100,7 +100,7 @@ public static partial class Program
             OnEntryAction = (player) =>
             {
                 // Check to see if the player HAS a KeyStone item.
-                if (!player.Items.Any(kvp => kvp.Value is KeyStone))
+                if (!player.Backpack.Any(kvp => kvp.Value is KeyStone))
                 {
                     // If Not, the player is denied entry and takes 1d4 damage!
                     WriteLineWarning("The heat from the portal drives you back.");
@@ -139,16 +139,16 @@ public static partial class Program
     {
         _player.Stats.GainExp(deadCritter.Stats.Exp);
         WriteLineSurprise(deathMessage);
-        if (deadCritter.Items.Any())
+        if (deadCritter.Backpack.Any())
         {
             WriteLineSurprise($"{deadCritter.Name} drops:");
-            foreach (var name in deadCritter.Items.Keys)
+            foreach (var name in deadCritter.Backpack.Keys)
             {
                 WriteNeutral("\tA [");
                 WriteSurprise($"{name}");
                 WriteLineNeutral("]");
                 // TODO:  There is potentially an error here!  Watchout! [Moderate]
-                _currentArea.AddItem(name, (deadCritter.Items[name] as Item)!);
+                _currentArea.AddItem(name, (deadCritter.Backpack[name] as Item)!);
             }
         }
         _currentArea.DeleteCreature(creatureUid);

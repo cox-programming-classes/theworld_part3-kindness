@@ -49,9 +49,9 @@ public static class Extensions
     public static void LookInBackpack(this Player player)
     {
         WriteLineNeutral("Your backpack contains:");
-        if (player.Items.Any())
+        if (player.Backpack.Any())
         {
-            foreach (UniqueName name in player.Items.Keys)
+            foreach (UniqueName name in player.Backpack.Keys)
             {
                 WriteNeutral("\tA [");
                 WriteSurprise($"{name}");

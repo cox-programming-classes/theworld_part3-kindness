@@ -57,7 +57,7 @@ public class Player : ICreature
      */
     
     private Dictionary<UniqueName, ICarryable> _items = new();
-    public ReadOnlyDictionary<UniqueName, ICarryable> Items => _items.AsReadOnly();
+    public ReadOnlyDictionary<UniqueName, ICarryable> Backpack => _items.AsReadOnly();
 
     
     /* TODO:  Write Behaviors that allow the player to access their Items.
@@ -78,25 +78,23 @@ public class Player : ICreature
             creature.Stats.ChangeHP(-value);
         }
     };
-    
-    private readonly Dictionary<UniqueName, Item> _backpack = new();
 
-    public void AddItem(UniqueName uniqueName, Item item)
+    public void AddItem(UniqueName uniqueName, ICarryable item)
     {
-        if (_backpack.ContainsKey(uniqueName))
+        if (Backpack.ContainsKey(uniqueName))
             throw new WorldException<Player>(this, $"{uniqueName} already exists in this area's _Items");
         
-        _backpack.Add(uniqueName, item);
+        _items.Add(uniqueName, item);
     }
 
-    public bool HasItem(UniqueName uniqueName) => _backpack.ContainsKey(uniqueName);
+    public bool HasItem(UniqueName uniqueName) => Backpack.ContainsKey(uniqueName);
     
-    public Item? GetItem(UniqueName uniqueName)
+    public ICarryable? GetItem(UniqueName uniqueName)
     {
         if (!this.HasItem(uniqueName))
             return null;
 
-        return _backpack[uniqueName];
+        return Backpack[uniqueName];
     }
 
     // TODO:  Create a way for players to have special abilities that can be used in or out of combat. [Extremely Difficult]
