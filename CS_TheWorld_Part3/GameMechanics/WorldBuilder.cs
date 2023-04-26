@@ -25,6 +25,7 @@ public static partial class Program
         {
             Name = "This Place",
             Description = "A barren plane with an ambient temperature around 22C and moderate humidity."
+            guid = new Guid();
         };
 
         // Add an item directly into the area.

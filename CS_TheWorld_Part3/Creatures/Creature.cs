@@ -16,7 +16,6 @@ public class Creature : ICreature
     public StatChart Stats { get; init; }
 
     
-
     public ReadOnlyDictionary<EquipSlot, IEquipable> Equipment { get; init; } = new(new Dictionary<EquipSlot, IEquipable>());
     public ReadOnlyDictionary<UniqueName, ICarryable> Items { get; init; } = new(new Dictionary<UniqueName, ICarryable>());
 

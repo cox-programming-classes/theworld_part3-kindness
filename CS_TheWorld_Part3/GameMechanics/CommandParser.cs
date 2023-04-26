@@ -20,7 +20,8 @@ public static partial class Program
         {"get", command => throw new NotImplementedException("Gotta write this!") },  
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
-        {"go", ProcessGoCommand }
+        {"go", ProcessGoCommand },
+        {"save", SaveWorld}
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]

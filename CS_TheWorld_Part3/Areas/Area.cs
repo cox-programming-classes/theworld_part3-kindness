@@ -26,7 +26,7 @@ public class Area
     /// prevent the player from leaving this area.
     /// </summary>
     public Func<Player, bool>? OnExitAction { get; init; } = (player) => false;
-    
+
     /// <summary>
     /// Name of an Area.
     /// </summary>
@@ -35,6 +35,9 @@ public class Area
     /// Description that prints when you look around an area.
     /// </summary>
     public string Description { get; init; }
+
+    //Global Variables
+    public Guid AreaCode { get; init; }
 
     /// <summary>
     /// All the Items that are in an Area.

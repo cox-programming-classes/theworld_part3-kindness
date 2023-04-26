@@ -1,4 +1,8 @@
+using System.Runtime.InteropServices.ComTypes;
 using System.Text.RegularExpressions;
+using CS_TheWorld_Part3.Items;
+using CS_TheWorld_Part3.Creatures;
+using CS_TheWorld_Part3.Areas;
 
 namespace CS_TheWorld_Part3.GameMath;
 
@@ -96,4 +100,16 @@ public class WorldException<T> : Exception
     {
         ObjectError = objectError;
     }
+    
 }
+
+public record PlayerRecord(string Name, StatChart Stats);
+
+public record AreaRecord(string[] Items, string[] Creatures);
+
+public record ItemRecord(UniqueName UniqueName, string Name, string Description);
+
+public record ICarryableRecord(UniqueName UniqueName, string Name, string Description, string Weight);
+
+public record CreatureRecord(UniqueName UniqueName, string Name, string Description, StatChart Stats, string[] Equipment, string[] Items);
+
