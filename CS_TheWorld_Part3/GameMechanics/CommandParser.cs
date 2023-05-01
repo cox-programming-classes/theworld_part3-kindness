@@ -23,7 +23,7 @@ public static partial class Program
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand },
-        {"backpack", command => _player.LookInBackpack }
+        {"backpack", CheckBackpack }
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -45,6 +45,11 @@ public static partial class Program
     /// </summary>
     /// <param name="command"></param>
     ///
+
+    public static void CheckBackpack(Command command)
+    {
+        _player.LookInBackpack();
+    }
 
     public static void GetItem(Command command)
     {

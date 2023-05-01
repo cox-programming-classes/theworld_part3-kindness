@@ -33,7 +33,7 @@ public static partial class Program
         // Also note that the DataType of "uniqueName" is a
         // UniqueName.  But we are passing a string here!
         // this is the implicit operator at work!
-        start.AddItem("rock", 
+        start.AddItem("rock",
             new Item()
             {
                 Name = "Rock", 
@@ -59,6 +59,30 @@ public static partial class Program
         {
             OnCreatureDeath("moth", moth, 
                 $"{moth.Name} falls in a flutter of wings and ichor.");
+        };
+        // Add the Moth to the area.
+        start.AddCreature("moth", moth);
+        
+        
+        var goose = new Creature()
+        {
+            Name = "Goose",
+            Description = "Its a goose",
+            Backpack= new(new Dictionary<UniqueName, ICarryable>()
+            {
+                {
+                    "healing rock",
+                    StandardItems.HealingRock
+                }
+            }),
+            Stats = new StatChart(27, 3, Dice.D20, new(1, 6, -1))
+        };
+        // Here we can assign a lambda expression
+        // to be the PlayerDeath action when the moth is killed
+        goose.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("The Goose", goose, 
+                $"{goose.Name} head explodes and dies.");
         };
         // Add the Moth to the area.
         start.AddCreature("moth", moth);

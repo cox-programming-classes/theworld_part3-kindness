@@ -28,6 +28,14 @@ public class KeyStone : Item, ICarryable, IUsable
 
         return $"{this} has no effect on {target}";
     }
+
+    public string UseOnToHeal(object target)
+    {
+        if (target is Player player)
+        {
+            player.Stats.RestoreHP();
+        }
+    }
 }
 
 // TODO:  Create a specialized item that can be USED to Heal the player [Moderate]
@@ -43,6 +51,13 @@ public static class StandardItems
         Description = "A stone that glows bright orange and is warm to the touch.",
         Weight = 1
     };
-    
+
+    public static KeyStone HealingRock => new()
+    {
+        Name = "Healing Rock",
+        Description = "A rock with incredible healing properties",
+        Weight = 2
+    };
+
     // TODO:  Create more cookie-cutter items that you can initialize at will
 }
