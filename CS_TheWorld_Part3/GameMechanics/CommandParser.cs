@@ -16,14 +16,17 @@ public static partial class Program
     /// </summary>
     private static Dictionary<UniqueName, Action<Command>> _commandWords = new()
     {
-        {"look", ProcessLookCommand },
-        {"get", command => throw new NotImplementedException("Gotta write this!") },  
-        {"fight", ProcessFightCommand },
-        {"cheat", command => _player.Stats.GainExp(50) }, 
-        {"go", ProcessGoCommand }
+        {"look", ProcessLookCommand},
+        {"get", command => throw new NotImplementedException("Gotta write this!")},
+        {"fight", ProcessFightCommand},
+        {"cheat", command => _player.Stats.GainExp(50)},
+        {"go", ProcessGoCommand},
+        {"drop", ProcessDropCommand},
+        {"stats", ProcessStatsCommand},
+        {"help" ProcessHelpCommand},
     };
 
-    // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
+
     // TODO:  Add a `help` command that displays the list of allowed commands and describes how to use them [Easy]
     // TODO:  Expand the `help` command to take a second parameter like `help look` that describes 
     //        all the possible ways to use the `look` command. [Easy, Multipart]
@@ -35,8 +38,8 @@ public static partial class Program
     // TODO:  Make sure that the `use`, `get`, and `drop` commands do not conflict with other items with the same uniqueName [Moderate]
     // TODO:  Make it possible for the player to have more than one of the same item (same uniqueName) in their inventory [Difficult]
     // TODO:  Extend the `use` command to allow the player to target themself by accepting the word `self` as the secondary target of a command [Difficult]
-    
-    
+
+
     /// <summary>
     /// Process the Command string typed by the player.
     /// </summary>
@@ -45,7 +48,7 @@ public static partial class Program
     {
         if (string.IsNullOrWhiteSpace(command.CommandWord))
             return;
-        
+
         if (!_commandWords.ContainsKey(command.CommandWord))
         {
             WriteLineWarning("I don't know what that means.");
@@ -54,7 +57,7 @@ public static partial class Program
         // TODO:  Reasearch!  Oh good god what the hell is this? [Moderate]
         _commandWords[command.CommandWord](command);
     }
-    
+
     private static void ProcessGoCommand(Command command)
     {
         if (command.Target == "")
@@ -70,15 +73,15 @@ public static partial class Program
         }
 
         var place = _currentArea.GetNeighboringArea(command.Target)!;
-        
+
         // Check the new Actions that Areas have.
         // Are there actions that happen when you leave an area or when you enter a new area?
         if (_currentArea.OnExitAction?.Invoke(_player) ?? false)
-            return;  // you were denied exit from the current area.
+            return; // you were denied exit from the current area.
 
         if (place.OnEntryAction?.Invoke(_player) ?? false)
-            return;  // you were denied entry to this area.
-        
+            return; // you were denied entry to this area.
+
         _currentArea = place;
     }
 
@@ -95,13 +98,13 @@ public static partial class Program
             WriteLineWarning($"You can't fight [{command.Target}].");
             return;
         }
-        
+
         if (!_currentArea.HasCreature(command.Target))
         {
             WriteLineWarning($"You don't see [{command.Target}].");
             return;
         }
-        
+
         WriteLineWarning("Gotta write that code yet....");
         var target = _currentArea.GetCreature(command.Target)!;
         DoBattle(target);
@@ -112,15 +115,47 @@ public static partial class Program
         // if the command is literally just "look"
         // look around the current area.
         // the LookAround() method is an Extension!
-        if(cmd.Target == "")
+        if (cmd.Target == "")
             _currentArea.LookAround();
         else
         {
             if (_currentArea.HasItem(cmd.Target))
-                _currentArea.GetItem(cmd.Target)!.LookAt(); 
+                _currentArea.GetItem(cmd.Target)!.LookAt();
             // the ! in this line means I'm certain that this item isn't null.
             if (_currentArea.HasCreature(cmd.Target))
                 _currentArea.GetCreature(cmd.Target)!.LookAt();
+        }
+    }
+
+    private static void ProcessDropCommand(Command cmd)
+    {
+        //Implement a `drop` command that removes an item from the players inventory and places it in the current Area [Easy]
+        // _player.Drop(cmd.Target)
+
+    }
+
+    private static void ProcessStatsCommand(Command cmd)
+    {
+        Console.WriteLine(_player.Stats);
+    }
+
+    private static void ProcessHelpCommand(Command cmd)
+    {
+        string look = "Look around the current area or specify an object to look at.";
+        //string get = "";
+        string fight = "";
+        string cheat = "";
+        string go = "";
+        //string drop = "";
+        string stats = "";
+        string help = "";
+        
+
+        if(cmd.Target == "")
+            Console.WriteLine("");
+        else
+        {
+            
         }
     }
 }

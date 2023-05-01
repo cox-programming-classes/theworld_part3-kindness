@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using CS_TheWorld_Part3.GameMath;
 using CS_TheWorld_Part3.Creatures;
 using CS_TheWorld_Part3.Items;
@@ -16,7 +17,23 @@ public static class StandardCreatures
         Stats = new StatChart(10, 10, Dice.D20, new(2, 4, -2))
     };
 
-    public static Creature FireBird => new()
+    public static Creature possum => new()
+    {
+        Name = "Rabid Possum",
+        Description = "A giant possum that wants to attack you.",
+        Stats = new StatChart(50, 15, Dice.D20, new Dice(2, 4, 1)),
+        Items = new (new Dictionary<UniqueName, ICarryable>()
+        {
+            {
+                "firestone",
+                StandardItems.FireStone
+
+            }
+            
+        })
+    };
+    
+        public static Creature FireBird => new()
     {
         Name="Fire Bird",
         Description = "It's a bird, and it's made of fire",

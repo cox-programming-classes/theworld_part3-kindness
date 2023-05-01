@@ -107,9 +107,16 @@ public class StatChart
             LevelUp?.Invoke(this, EventArgs.Empty);
         }
     }
+    public override string ToString()
+    {
+        string stats = $"MaxHP: {MaxHP}, AC: {AC}, HitDice: {HitDice}, AttackDice: {AttackDice}";
+        return stats;
+    }
 }
 
 /// <summary>
 /// EventArgs are passed out of an Event to the place that is handling this event.
 /// </summary>
 public class OnDeathEventArgs : EventArgs { public int Overkill { get; init; } }
+
+
