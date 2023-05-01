@@ -14,6 +14,14 @@ public class Creature : ICreature
     /// Note that in a Creature, the StatChart.Exp is how much experience the Player gets from 
     /// </summary>
     public StatChart Stats { get; init; }
+    
+    //GUID
+    public string guid { get; }
+
+    public Creature()
+    {
+        guid = Guid.NewGuid().ToString();
+    }
 
     
     public ReadOnlyDictionary<EquipSlot, IEquipable> Equipment { get; init; } = new(new Dictionary<EquipSlot, IEquipable>());

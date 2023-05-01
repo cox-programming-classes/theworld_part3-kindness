@@ -105,11 +105,12 @@ public class WorldException<T> : Exception
 
 public record PlayerRecord(string Name, StatChart Stats);
 
-public record AreaRecord(string[] Items, string[] Creatures);
+public record AreaRecord(string AreaCode, List<string> ItemGuids, List<string> CreatureGuids);
 
 public record ItemRecord(UniqueName UniqueName, string Name, string Description);
 
 public record ICarryableRecord(UniqueName UniqueName, string Name, string Description, string Weight);
 
-public record CreatureRecord(UniqueName UniqueName, string Name, string Description, StatChart Stats, string[] Equipment, string[] Items);
+public record CreatureRecord(UniqueName UniqueName, string Name, string Description, 
+    StatChart Stats, string[] Equipment, string[] Items);
 

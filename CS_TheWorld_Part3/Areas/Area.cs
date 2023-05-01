@@ -36,8 +36,14 @@ public class Area
     /// </summary>
     public string Description { get; init; }
 
-    //Global Variables
-    public Guid AreaCode { get; init; }
+    //GUID
+    public string guid { get; }
+
+    public Area()
+    {
+        guid = Guid.NewGuid().ToString();
+    }
+    
 
     /// <summary>
     /// All the Items that are in an Area.
