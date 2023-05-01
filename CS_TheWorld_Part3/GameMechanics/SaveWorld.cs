@@ -24,7 +24,9 @@ public static partial class Program
         foreach (var itemGuid in ItemGuids)
         {
             var item = 
-            ItemsData.Append()
+            ItemsData.Append() //my issue is that now i've lost the instance
+                               //but if i keep the instance then its an Item and i get get stuff from interfaces
+                               //or it stays as an interface class type in the list and now i cant get stuff from Item
         }
 
             //creatures
