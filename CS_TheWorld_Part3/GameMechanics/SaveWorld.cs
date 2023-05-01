@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using CS_TheWorld_Part3.Items;
 
 namespace CS_TheWorld_Part3.GameMechanics;
@@ -87,4 +88,87 @@ public static partial class Program
         File.WriteAllText("player.txt", data);
     }
     
+}
+
+/// <summary>
+/// Here's a starting point for a serializable way to approach the game data
+/// Here, it is important that this be a "struct" and not a "record" because records are `immutable` (we can talk about that).
+/// (also, for reasons we can talk about, it might be better to use "record struct" for the records... because ... we should talk about that too.)
+/// (it has to do with the difference between a "reference type" and a "value type")
+/// </summary>
+public struct GameData
+{
+    /// <summary>
+    /// The Serialized Player....
+    /// </summary>
+    public PlayerRecord player;
+
+    /// <summary>
+    /// All the Areas in a single dictionary.  Keys are GUIDs.
+    /// </summary>
+    public Dictionary<string, AreaRecord> AllAreas;
+
+    /// <summary>
+    ///  Same idea, All the Unique Item References indexed by their GUID.
+    /// </summary>
+    public Dictionary<string, ItemRecord> AllItems;
+
+    public Dictionary<string, CreatureRecord> AllCreatures;
+
+    // TODO: Do the same for any other types that are separate.
+
+    /// <summary>
+    /// Try Adding the serialized area....
+    /// if the record already exists in the Dictionary--do nothing!
+    /// </summary>
+    /// <param name="guid"></param>
+    /// <param name="record"></param>
+    public void AddArea(Area theRealArea)
+    {
+        var guid = theRealArea.guid;
+        if (!AllAreas.ContainsKey(guid))
+        {
+            AreaRecord record = null; // TODO:  convert theRealArea into a record here.
+            AllAreas.Add(guid, record);
+
+            // Here comes the recursive step which is why it is important that this method do *nothing* if the guid
+            // is already present in the Dictionary. 
+            foreach (var neighboringArea in theRealArea.Neighbors.Values)
+            {
+                this.AddArea(neighboringArea);
+            }
+
+            foreach (var item in theRealArea.Items.Values)
+            {
+                // TODO: you get the idea.
+            }
+            
+            // TODO:  yeah all the collection properties have to be deliberately serialized.
+        }
+    }
+
+    /// <summary>
+    /// Here's the tough one.
+    /// </summary>
+    /// <param name="creature"></param>
+    public void AddCreature(Creature creature)
+    {
+        var guid = creature.guid;
+        if (!AllCreatures.ContainsKey(guid))
+        {
+            CreatureRecord record = null; //TODO: Yeah all that stuff.
+            foreach (var thing in creature.Items.Values)
+            {
+                // the type on `thing` is ICarryable...
+                if (thing is Item item) // this turns it into an item!
+                                        // If it isn't an Item, then something is wrong and we'll ignore it for now...
+                {
+                    Debug.WriteLine($"{creature.Name} has a {item.Name}"); // just a little debug message~
+                    //this.AddItem(item); TODO: once you write that you can uncomment this line.
+                }
+            }
+        }
+    }
+    
+    // TODO: yadayada do the other types too.
 }
