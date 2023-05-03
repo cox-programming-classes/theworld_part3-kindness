@@ -1,4 +1,5 @@
 
+using System.Security.AccessControl;
 using CS_TheWorld_Part3.GameMath;
 namespace CS_TheWorld_Part3.GameMechanics;
 using static TextFormatter;
@@ -23,7 +24,7 @@ public static partial class Program
         {"go", ProcessGoCommand},
         {"drop", ProcessDropCommand},
         {"stats", ProcessStatsCommand},
-        {"help" ProcessHelpCommand},
+        {"help", ProcessHelpCommand},
     };
 
 
@@ -141,21 +142,58 @@ public static partial class Program
 
     private static void ProcessHelpCommand(Command cmd)
     {
-        string look = "Look around the current area or specify an object to look at.";
+        string look = "Look: look around the current area or specify an object to look at.";
         //string get = "";
-        string fight = "";
-        string cheat = "";
-        string go = "";
+        string fight = "Fight: fight a creature";
+        string cheat = "Cheat: gain 50 HP";
+        string go = "Go: go somewhere";
         //string drop = "";
-        string stats = "";
-        string help = "";
-        
+        string stats = "Stats: get an update of the player's stats";
+        string help = "Help: get a summary of the uses of all commands or specify a command to get a summary for.";
+        /*
 
-        if(cmd.Target == "")
-            Console.WriteLine("");
+        if (cmd.Target == "")
+        {
+            Console.WriteLine(look);
+            Console.WriteLine(fight);
+            Console.WriteLine(cheat);
+            Console.WriteLine(go);
+            Console.WriteLine(stats);
+            Console.WriteLine(help);
+        }
         else
         {
-            
+            Console.WriteLine(cmd.Target);
         }
+        */
+        
+
+        
+        if(cmd.Target == "look")
+            Console.WriteLine(look);
+        else if(cmd.Target == "fight")
+            Console.WriteLine(fight);
+        else if(cmd.Target == "cheat")
+            Console.WriteLine(cheat);
+        else if(cmd.Target == "go")
+            Console.WriteLine(go);
+        else if(cmd.Target == "stats")
+            Console.WriteLine(stats);
+        else if(cmd.Target == "help")
+            Console.WriteLine(help);
+        else if (cmd.Target == "")
+        {
+            Console.WriteLine(look);
+            Console.WriteLine(fight);
+            Console.WriteLine(cheat);
+            Console.WriteLine(go);
+            Console.WriteLine(stats);
+            Console.WriteLine(help);
+        }
+        else
+        {
+            Console.WriteLine("I dont know what that is. Type 'help' followed by one of the game commands: look, fight, cheat, go, stats, and help.");
+        }
+       
     }
 }
