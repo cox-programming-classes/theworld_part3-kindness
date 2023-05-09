@@ -24,6 +24,8 @@ public class Player : ICreature
     public string Name { get; init; }
     
     public StatChart Stats { get; init; }
+    
+    public SocialStats SocialStats { get; init; }
 
     public uint EffectiveAC
     {
@@ -43,10 +45,9 @@ public class Player : ICreature
     {
         Name = name;
         Stats = new(10, 10, Dice.D20, new(2, 4));
-        
-    }
+        SocialStats = new SocialStats(0, 15, 0);
 
-    
+    }
 
 
     private Dictionary<EquipSlot, IEquipable> _equipment = new();
