@@ -14,10 +14,32 @@ public class SocialStats
     }
 
     public void changeAddiction(int num) => Addiction = Addiction + num < 0 ? 0 : (uint)(Addiction + num);
-
-    public void changeMH(int num) => MentalHealth += num;
     
     public void changeSP(int num) => SocialPoints += num;
+
+    public void changeMH(int num) => MentalHealth += num;
+
+    /// <summary>
+    /// Function bring sup mental health temporaryly after after a ceratin amounnt of time mh goes down
+    /// </summary>
+    /// <param name="firstValue">first increase of mh</param>
+    /// <param name="downValue">give in positive - amount mh decreases eventually</param>
+    /// <param name="time">amount of time it take for mh to go down</param>
+    public void changeMHTemporary(int firstValue, int downValue, int time)
+    {
+        changeMH(firstValue);
+        Console.WriteLine("up " + firstValue + "="+ MentalHealth);
+        Thread thread = new(() => MHThread(downValue, time));
+        thread.Start();
+    }
+
+    public void MHThread(int down, int time)
+    {
+        Thread.Sleep(time);
+        changeMH(-down);
+        Console.WriteLine("down " +down+"="+ MentalHealth);
+    }
+    
 
 
 }
