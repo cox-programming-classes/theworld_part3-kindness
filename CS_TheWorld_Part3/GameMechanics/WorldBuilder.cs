@@ -68,52 +68,6 @@ public static partial class Program
             Name = "The Tundra",
             Description = "Cold, Barren Wasteland."
         };
-        
-        //Creates Adderall Monster
-        Creature AdderallMonster = new()
-        {
-            Name = "Adderall Monster",
-            Description = "Allows you to fight the Adderall monster",
-            Backpack = new(new Dictionary<UniqueName, ICarryable>()
-            {
-                {
-                    "adderallstone",
-                    Drug.StandardItems.Adderall
-                }
-            })
-        };
-        
-        //Creates the Adderall Stone and then puts the Adderall Monster as what it makes
-        DrugStone AdderallStone = new()
-        {
-            Name = "Adderall Stone",
-            Description = "Allows you to fight the Adderall monster",
-            Weight = 2,
-            Place= _currentArea,
-            Monster= ("adderallmonster", AdderallMonster)
-        };
-        
-        //Creates Kenna as a creature-- once you defeat Kenna you get the Adderall Stone
-        Creature Kenna = new()
-        {
-            Name = "Kenna",
-            Description = "Its Kenna",
-            Stats = new StatChart(27, 3, Dice.D20, new(1, 6, -1)),
-            Backpack= new(new Dictionary<UniqueName, ICarryable>()
-            {
-                {
-                    "adderallstone",
-                    AdderallStone
-                }
-            }),
-        };
-        Kenna.Stats.Death += (sender, args) =>
-        {
-            OnCreatureDeath("Kenna", Kenna, 
-                $"{Kenna.Name} dies");
-        };
-        start.AddCreature("Kenna", Kenna);
-
 
         var salamander = new Creature()
         {
@@ -169,6 +123,12 @@ public static partial class Program
         planeOfFire.AddCreature("firebird", firebird);
         
         start.AddNeighboringArea(new("portal", "a Firey portal"), planeOfFire);
+        
+        //maine
+        Area Maine = InitializeMaine();
+        
+        Maine.AddNeighboringArea(new Direction("north", "Up to the north"), start);
+        start.AddNeighboringArea(new Direction("south", "To the south"), Maine);
         
         // return the starting area.
         return start;
