@@ -123,7 +123,9 @@ public static partial class Program
         planeOfFire.AddCreature("firebird", firebird);
         
         start.AddNeighboringArea(new("portal", "a Firey portal"), planeOfFire);
-        
+        Area _maze = InitializeMaze();
+
+        start.AddNeighboringArea(new ("up", "up to who knows whetre"), _maze);
         // return the starting area.
         return start;
     }
