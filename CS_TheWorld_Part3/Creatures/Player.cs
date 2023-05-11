@@ -24,6 +24,8 @@ public class Player : ICreature
     public string Name { get; init; }
     
     public StatChart Stats { get; init; }
+    
+    public SocialStats SocialStats { get; init; }
 
     public uint EffectiveAC
     {
@@ -43,10 +45,9 @@ public class Player : ICreature
     {
         Name = name;
         Stats = new(10, 10, Dice.D20, new(2, 4));
-        
-    }
+        SocialStats = new SocialStats(0, 15, 0);
 
-    
+    }
 
 
     private Dictionary<EquipSlot, IEquipable> _equipment = new();
@@ -59,7 +60,7 @@ public class Player : ICreature
      */
     
     private Dictionary<UniqueName, ICarryable> _items = new();
-    public ReadOnlyDictionary<UniqueName, ICarryable> Items => _items.AsReadOnly();
+    public ReadOnlyDictionary<UniqueName, ICarryable> Backpack => _items.AsReadOnly();
 
     
     /* TODO:  Write Behaviors that allow the player to access their Items.
@@ -80,7 +81,25 @@ public class Player : ICreature
             creature.Stats.ChangeHP(-value);
         }
     };
+
+    public void AddItem(UniqueName uniqueName, ICarryable item)
+    {
+        if (Backpack.ContainsKey(uniqueName))
+            throw new WorldException<Player>(this, $"{uniqueName} already exists in this area's _Items");
+        
+        _items.Add(uniqueName, item);
+    }
+
+    public bool HasItem(UniqueName uniqueName) => Backpack.ContainsKey(uniqueName);
     
+    public ICarryable? GetItem(UniqueName uniqueName)
+    {
+        if (!this.HasItem(uniqueName))
+            return null;
+
+        return Backpack[uniqueName];
+    }
+
     // TODO:  Create a way for players to have special abilities that can be used in or out of combat. [Extremely Difficult]
     // TODO:  Part 1:  Define what a "special ability" is. [Moderate]
     // TODO:  Part 2:  Define a way for the player to acquire abilities [Moderate~Difficult]

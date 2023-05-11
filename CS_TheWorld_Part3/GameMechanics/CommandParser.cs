@@ -1,5 +1,7 @@
 
 using CS_TheWorld_Part3.GameMath;
+using CS_TheWorld_Part3.Items;
+
 namespace CS_TheWorld_Part3.GameMechanics;
 using static TextFormatter;
 
@@ -17,11 +19,15 @@ public static partial class Program
     private static Dictionary<UniqueName, Action<Command>> _commandWords = new()
     {
         {"look", ProcessLookCommand },
-        {"get", command => throw new NotImplementedException("Gotta write this!") },  
+        {"get", GetItem },  
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand },
-        {"use", ProcessUseCommand }
+
+        {"use", ProcessUseCommand },
+
+        {"backpack", CheckBackpack }
+
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -36,12 +42,37 @@ public static partial class Program
     // TODO:  Make sure that the `use`, `get`, and `drop` commands do not conflict with other items with the same uniqueName [Moderate]
     // TODO:  Make it possible for the player to have more than one of the same item (same uniqueName) in their inventory [Difficult]
     // TODO:  Extend the `use` command to allow the player to target themself by accepting the word `self` as the secondary target of a command [Difficult]
-    
-    
+
+
     /// <summary>
     /// Process the Command string typed by the player.
     /// </summary>
     /// <param name="command"></param>
+    ///
+
+    public static void CheckBackpack(Command command)
+    {
+        _player.LookInBackpack();
+    }
+
+    public static void GetItem(Command command)
+    {
+        if (_currentArea.HasItem(command.Target))
+        {
+            var item = _currentArea.GetItem(command.Target);
+            if (item is ICarryable thing)
+            {
+                _player.AddItem(command.Target, thing);
+                _currentArea.RemoveItem(command.Target);
+                WriteLineWarning($"You now have [{command.Target}] in your backpack.");
+                return;
+            }
+
+            else 
+                WriteLineNegative("You can't pick that up. Sorry");
+        }
+    }
+    
     private static void ProcessCommandString(Command command)
     {
         if (string.IsNullOrWhiteSpace(command.CommandWord))
@@ -58,6 +89,7 @@ public static partial class Program
     
     private static void ProcessGoCommand(Command command)
     {
+        _player.SocialStats.changeMHTemporary(5, 10, 100);
         if (command.Target == "")
         {
             WriteLineWarning("Go Where?");

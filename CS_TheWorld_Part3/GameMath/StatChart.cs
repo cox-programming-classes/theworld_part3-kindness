@@ -79,6 +79,19 @@ public class StatChart
             Death?.Invoke(this, new OnDeathEventArgs() { Overkill = overkill});
         }
     }
+    
+    public void RestoreHP()
+    {
+        if(HP < MaxHP)
+            HP = (int)MaxHP;
+
+        if (HP < 0)
+        {
+            var overkill = HP;
+            HP = 0;
+            Death?.Invoke(this, new OnDeathEventArgs() { Overkill = overkill});
+        }
+    }
 
     /// <summary>
     /// What happens when you Gain Experience, this also covers the logic for leveling up.
