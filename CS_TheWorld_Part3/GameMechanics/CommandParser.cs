@@ -1,5 +1,8 @@
 
+using System.Security.Cryptography;
 using CS_TheWorld_Part3.GameMath;
+using CS_TheWorld_Part3.Items;
+
 namespace CS_TheWorld_Part3.GameMechanics;
 using static TextFormatter;
 
@@ -20,7 +23,9 @@ public static partial class Program
         {"get", command => throw new NotImplementedException("Gotta write this!") },  
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
-        {"go", ProcessGoCommand }
+        {"go", ProcessGoCommand },
+        {"backpack", ProcessBackpackCommand},
+        {"use", ProcessUseCommand}
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -122,5 +127,37 @@ public static partial class Program
             if (_currentArea.HasCreature(cmd.Target))
                 _currentArea.GetCreature(cmd.Target)!.LookAt();
         }
+    }
+
+
+    private static void ProcessBackpackCommand(Command command)
+    {
+        foreach (Item i in _player.Inventory)
+        {
+            Console.WriteLine($"{i.Name}");
+        }
+
+    }
+    
+    
+    
+    
+    private static void ProcessUseCommand(Command command)
+    {
+        if(_currentArea.HasItem(command.Target))
+        {
+           if (command.Target is IUsable)
+           {
+               //Console.WriteLine($"{command.Target.Use}");
+               Console.WriteLine("hi");
+
+           }
+        }
+
+        else
+        {
+            Console.WriteLine("Sorry, that item isn't near you!");
+        }
+        
     }
 }

@@ -26,6 +26,23 @@ public static partial class Program
             Name = "This Place",
             Description = "A barren plane with an ambient temperature around 22C and moderate humidity."
         };
+        
+        
+        
+        /*
+        
+        var possum Creature =  StandardCreatures.Marsupial;
+        
+        possum.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("possum", possum, 
+                $"the soup is ready");
+        };
+        
+        start.AddCreature("possum", possum);
+        
+        */
+            
 
         // Add an item directly into the area.
         // by creating the item directly inside this statement,
@@ -83,6 +100,7 @@ public static partial class Program
             Stats = new(15, 12, Dice.D20, Dice.D6)
         };
 
+        
         // TODO:  Research!  This command is long... wtf is going on here, and why is it written this way? [Moderate]
         salamander.Stats.Death += (sender, args) =>
             OnCreatureDeath("salamander", salamander,
@@ -112,6 +130,44 @@ public static partial class Program
                 return false;
             }
         };
+
+
+        var DrugAreaLevel2 = new Area()
+        {
+            Name = "Drug2",
+            Description = "A place with more drugs."
+        };
+        
+        var LSD = new LSD(100, )
+        var LSDMonster = new Creature ()
+        {
+            Name = "LSD Monster",
+            Description = "It is a LSD Monster",
+            Items= new(new Dictionary<UniqueName, ICarryable>()
+            {
+                {
+                    "LSD",
+                    StandardItems.LSD();
+                }
+            Stats = new StatChart (30,10, new Dice(2,6), new Dice (2,6))
+
+        };
+
+        DrugAreaLevel2.AddCreature("LSD Monster", LSDMonster );
+        
+        moth.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("moth", moth, 
+                $"{moth.Name} falls in a flutter of wings and ichor.");
+        };
+        LSDMonster.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("LSD Monster", LSDMonster, $"{LSDMonster.Name} bursts into flames");
+            _player.AddtoInventoy ()
+        };
+
+
+
 
         // TODO:  This Mechanic of creating a creature then applying the death event is clunky [Extremely Difficult]
         //        Can you make it better?  
