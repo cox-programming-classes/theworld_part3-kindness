@@ -62,36 +62,58 @@ public static partial class Program
         };
         // Add the Moth to the area.
         start.AddCreature("moth", moth);
-        
-        
-        var goose = new Creature()
-        {
-            Name = "Goose",
-            Description = "Its a goose",
-            Backpack= new(new Dictionary<UniqueName, ICarryable>()
-            {
-                {
-                    "healing rock",
-                    StandardItems.HealingRock
-                }
-            }),
-            Stats = new StatChart(27, 3, Dice.D20, new(1, 6, -1))
-        };
-        // Here we can assign a lambda expression
-        // to be the PlayerDeath action when the moth is killed
-        goose.Stats.Death += (sender, args) =>
-        {
-            OnCreatureDeath("The Goose", goose, 
-                $"{goose.Name} head explodes and dies.");
-        };
-        // Add the Moth to the area.
-        start.AddCreature("moth", moth);
 
         var tundra = new Area()
         {
             Name = "The Tundra",
             Description = "Cold, Barren Wasteland."
         };
+        
+        //Creates Adderall Monster
+        Creature AdderallMonster = new()
+        {
+            Name = "Adderall Monster",
+            Description = "Allows you to fight the Adderall monster",
+            Backpack = new(new Dictionary<UniqueName, ICarryable>()
+            {
+                {
+                    "adderallstone",
+                    Drug.StandardItems.Adderall
+                }
+            })
+        };
+        
+        //Creates the Adderall Stone and then puts the Adderall Monster as what it makes
+        DrugStone AdderallStone = new()
+        {
+            Name = "Adderall Stone",
+            Description = "Allows you to fight the Adderall monster",
+            Weight = 2,
+            Place= _currentArea,
+            Monster= ("adderallmonster", AdderallMonster)
+        };
+        
+        //Creates Kenna as a creature-- once you defeat Kenna you get the Adderall Stone
+        Creature Kenna = new()
+        {
+            Name = "Kenna",
+            Description = "Its Kenna",
+            Stats = new StatChart(27, 3, Dice.D20, new(1, 6, -1)),
+            Backpack= new(new Dictionary<UniqueName, ICarryable>()
+            {
+                {
+                    "adderallstone",
+                    AdderallStone
+                }
+            }),
+        };
+        Kenna.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("Kenna", Kenna, 
+                $"{Kenna.Name} dies");
+        };
+        start.AddCreature("Kenna", Kenna);
+
 
         var salamander = new Creature()
         {
@@ -101,7 +123,7 @@ public static partial class Program
             {   
                 {
                     "firestone", 
-                    StandardItems.FireStone
+                    Drug.StandardItems.FireStone
                 }
             }),
             Stats = new(15, 12, Dice.D20, Dice.D6)
