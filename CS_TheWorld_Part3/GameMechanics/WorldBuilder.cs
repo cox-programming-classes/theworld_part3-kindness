@@ -33,7 +33,7 @@ public static partial class Program
         // Also note that the DataType of "uniqueName" is a
         // UniqueName.  But we are passing a string here!
         // this is the implicit operator at work!
-        start.AddItem("rock", 
+        start.AddItem("rock",
             new Item()
             {
                 Name = "Rock", 
@@ -44,7 +44,7 @@ public static partial class Program
         {
             Name = "Giant Moth",
             Description = "Holy shit that things huge!",
-            Items= new(new Dictionary<UniqueName, ICarryable>()
+            Backpack= new(new Dictionary<UniqueName, ICarryable>()
             {
                 {
                     "sword",
@@ -68,16 +68,62 @@ public static partial class Program
             Name = "The Tundra",
             Description = "Cold, Barren Wasteland."
         };
+        
+        //Creates Adderall Monster
+        Creature AdderallMonster = new()
+        {
+            Name = "Adderall Monster",
+            Description = "Allows you to fight the Adderall monster",
+            Backpack = new(new Dictionary<UniqueName, ICarryable>()
+            {
+                {
+                    "adderallstone",
+                    Drug.StandardItems.Adderall
+                }
+            })
+        };
+        
+        //Creates the Adderall Stone and then puts the Adderall Monster as what it makes
+        DrugStone AdderallStone = new()
+        {
+            Name = "Adderall Stone",
+            Description = "Allows you to fight the Adderall monster",
+            Weight = 2,
+            Place= _currentArea,
+            Monster= ("adderallmonster", AdderallMonster)
+        };
+        
+        //Creates Kenna as a creature-- once you defeat Kenna you get the Adderall Stone
+        Creature Kenna = new()
+        {
+            Name = "Kenna",
+            Description = "Its Kenna",
+            Stats = new StatChart(27, 3, Dice.D20, new(1, 6, -1)),
+            Backpack= new(new Dictionary<UniqueName, ICarryable>()
+            {
+                {
+                    "adderallstone",
+                    AdderallStone
+                }
+            }),
+        };
+        Kenna.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("Kenna", Kenna, 
+                $"{Kenna.Name} dies");
+        };
+        start.AddCreature("Kenna", Kenna);
+
 
         var salamander = new Creature()
         {
             Name="Salamander",
             Description = "A lizard looking critter that has a flickering flame down its spine.",
-            Items = new(new Dictionary<UniqueName, ICarryable>()
+            Backpack = new(new Dictionary<UniqueName, ICarryable>()
             {   
                 {
                     "firestone", 
-                    StandardItems.FireStone
+                    Drug.StandardItems.FireStone
                 }
             }),
             Stats = new(15, 12, Dice.D20, Dice.D6)
@@ -100,7 +146,7 @@ public static partial class Program
             OnEntryAction = (player) =>
             {
                 // Check to see if the player HAS a KeyStone item.
-                if (!player.Items.Any(kvp => kvp.Value is KeyStone))
+                if (!player.Backpack.Any(kvp => kvp.Value is KeyStone))
                 {
                     // If Not, the player is denied entry and takes 1d4 damage!
                     WriteLineWarning("The heat from the portal drives you back.");
@@ -139,16 +185,16 @@ public static partial class Program
     {
         _player.Stats.GainExp(deadCritter.Stats.Exp);
         WriteLineSurprise(deathMessage);
-        if (deadCritter.Items.Any())
+        if (deadCritter.Backpack.Any())
         {
             WriteLineSurprise($"{deadCritter.Name} drops:");
-            foreach (var name in deadCritter.Items.Keys)
+            foreach (var name in deadCritter.Backpack.Keys)
             {
                 WriteNeutral("\tA [");
                 WriteSurprise($"{name}");
                 WriteLineNeutral("]");
                 // TODO:  There is potentially an error here!  Watchout! [Moderate]
-                _currentArea.AddItem(name, (deadCritter.Items[name] as Item)!);
+                _currentArea.AddItem(name, (deadCritter.Backpack[name] as Item)!);
             }
         }
         _currentArea.DeleteCreature(creatureUid);

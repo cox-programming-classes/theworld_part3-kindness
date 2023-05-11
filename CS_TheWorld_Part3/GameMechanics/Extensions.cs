@@ -45,6 +45,21 @@ public static class Extensions
     /// Look around a given area
     /// </summary>
     /// <param name="area"></param>
+
+    public static void LookInBackpack(this Player player)
+    {
+        WriteLineNeutral("Your backpack contains:");
+        if (player.Backpack.Any())
+        {
+            foreach (UniqueName name in player.Backpack.Keys)
+            {
+                WriteNeutral("\tA [");
+                WriteSurprise($"{name}");
+                WriteLineNeutral("]");
+            }
+        }
+    }
+    
     public static void LookAround(this Area area)
     {
         {
