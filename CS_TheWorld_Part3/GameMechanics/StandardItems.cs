@@ -44,5 +44,12 @@ public static class StandardItems
         Weight = 1
     };
     
+    public static KeyStone Sapphire => new()
+    {
+        Name = "Sapphire",
+        Description = "A blue gem, but not like the diamond emoji.",
+        Weight = 3
+    };
+    
     // TODO:  Create more cookie-cutter items that you can initialize at will
 }

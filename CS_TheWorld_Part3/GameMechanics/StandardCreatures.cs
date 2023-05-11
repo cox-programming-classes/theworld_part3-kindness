@@ -21,7 +21,19 @@ public static class StandardCreatures
         Name="Fire Bird",
         Description = "It's a bird, and it's made of fire",
         Stats = new(24, 12, Dice.D20, Dice.D12)
+        
     };
+
+    public static Creature SmallNarwhal => new()
+    {
+        Name = "Small Narwhal",
+        Description = "Woah, that is the cutest narwhal I've ever seen",
+        Stats = new StatChart(10, 10, Dice.D20, new(2, 4, -2))
+    };
+    
+    
+        
+
 
 
     // TODO:  Create Some more CREATURES! [Easy]
@@ -30,3 +42,9 @@ public static class StandardCreatures
     // TODO:  NPCs that can engage in Dialog [Difficult]
     // TODO:  NPCs that you can engage in commerce with [Very Difficult]
 }
+
+public static class UniqueCreatures
+{
+    
+}
+

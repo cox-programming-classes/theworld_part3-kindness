@@ -20,7 +20,8 @@ public static partial class Program
         {"get", command => throw new NotImplementedException("Gotta write this!") },  
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
-        {"go", ProcessGoCommand }
+        {"go", ProcessGoCommand },
+        {"use", ProcessUseCommand }
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -114,6 +115,19 @@ public static partial class Program
         // the LookAround() method is an Extension!
         if(cmd.Target == "")
             _currentArea.LookAround();
+        else
+        {
+            if (_currentArea.HasItem(cmd.Target))
+                _currentArea.GetItem(cmd.Target)!.LookAt(); 
+            // the ! in this line means I'm certain that this item isn't null.
+            if (_currentArea.HasCreature(cmd.Target))
+                _currentArea.GetCreature(cmd.Target)!.LookAt();
+        }
+    }
+    private static void ProcessUseCommand(Command cmd)
+    {
+        if(cmd.Target == "")
+            WriteNegative("Use what?");
         else
         {
             if (_currentArea.HasItem(cmd.Target))
