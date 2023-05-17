@@ -33,25 +33,6 @@ public class KeyStone : Item, ICarryable, IUsable
 
 }
 
-public class DrugStone : Item, ICarryable, IUsable
-{
-    public Area Place { get; init; }
-    public (string, Creature) Monster { get; init; }
-    public int Weight { get; init; }
-
-    /// <summary>
-    /// Becareful what you use this on!
-    /// </summary>
-    /// <param name="target"></param>
-    /// <returns></returns>
-    public string Use()
-    {
-        Place.AddCreature(Monster.Item1, Monster.Item2);
-// needs to have a property that is the area that the monster goes into. So you can insert the monster into the area. 
-        return "The Drug monster has appeared";
-    }
-}
-
 public class Drug : Item, ICarryable, IUsable
 {
     public string Type { get; init; }

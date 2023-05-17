@@ -1,6 +1,7 @@
 ﻿using CS_TheWorld_Part3.Areas;
 using CS_TheWorld_Part3.Creatures;
 using CS_TheWorld_Part3.GameMath;
+using CS_TheWorld_Part3.Items;
 
 namespace CS_TheWorld_Part3.GameMechanics;
 
@@ -77,5 +78,24 @@ public static partial class Program
     private static void PlayerLevelUp(object? sender, EventArgs e)
     {
         WriteLinePositive($"Congratz You're now Level {_player.Stats.Level}");
+    }
+    
+    public class DrugStone : Item, ICarryable, IUsable
+    {
+        public Area Place { get; init; }
+        public (string, Creature) Monster { get; init; }
+        public int Weight { get; init; }
+
+        /// <summary>
+        /// Becareful what you use this on!
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public string Use()
+        {
+            _currentArea.AddCreature(Monster.Item1, Monster.Item2);
+// needs to have a property that is the area that the monster goes into. So you can insert the monster into the area. 
+            return "The Drug monster has appeared";
+        }
     }
 }

@@ -72,24 +72,30 @@ public static partial class Program
         //Creates Adderall Monster
         Creature AdderallMonster = new()
         {
-            Name = "Adderall Monster",
+            Name = "adderallmonster",
             Description = "Allows you to fight the Adderall monster",
+            Stats = new StatChart(11, 3, Dice.D20, new(1, 4, -1)),
             Backpack = new(new Dictionary<UniqueName, ICarryable>()
             {
                 {
-                    "adderallstone",
+                    "adderall",
                     Drug.StandardItems.Adderall
                 }
             })
         };
-        
+        AdderallMonster.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("adderallmonster", AdderallMonster, 
+                $"{AdderallMonster.Name} dies");
+        };
+
         //Creates the Adderall Stone and then puts the Adderall Monster as what it makes
         DrugStone AdderallStone = new()
         {
             Name = "Adderall Stone",
             Description = "Allows you to fight the Adderall monster",
             Weight = 2,
-            Place= _currentArea,
+            Place = _currentArea,
             Monster= ("adderallmonster", AdderallMonster)
         };
         
