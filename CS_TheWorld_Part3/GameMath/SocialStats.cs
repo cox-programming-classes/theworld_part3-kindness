@@ -4,6 +4,9 @@ using static GameMechanics.TextFormatter;
 
 public class SocialStats
 {
+    
+    public event EventHandler SocialStarStatus;
+
     public uint Addiction { get; private set; }
     public int MentalHealth { get; private set; }
     public int SocialPoints { get; private set; }
@@ -21,6 +24,11 @@ public class SocialStats
     {
         SocialPoints += num;
         WriteLineNeutral($"{num} Social Points");
+        if (SocialPoints > 50)
+        {
+            WriteLinePositive("You have unlocked social star status!");
+            SocialStarStatus?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public void changeMH(int num)

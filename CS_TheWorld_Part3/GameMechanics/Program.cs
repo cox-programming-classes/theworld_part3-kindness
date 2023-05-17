@@ -42,6 +42,7 @@ public static partial class Program
         _player.Stats.LevelUp += PlayerLevelUp;
         _player.Stats.Death += PlayerDeath;
         _player.Stats.HPChanged += PlayerHPChanged;
+        _player.SocialStats.SocialStarStatus += SocialStatus;
         
         WriteLinePositive($"Hello, {_player.Name}");
         string command = GetPlayerInput();
@@ -77,5 +78,12 @@ public static partial class Program
     private static void PlayerLevelUp(object? sender, EventArgs e)
     {
         WriteLinePositive($"Congratz You're now Level {_player.Stats.Level}");
+    }
+
+    public static void SocialStatus(object? sender, EventArgs e)
+    {
+        Area BandBattle = InitializeBandBattle();
+        _currentArea.AddNeighboringArea(new Direction("band", "to go the"), BandBattle);
+        BandBattle.AddNeighboringArea(new Direction("back", "go"), _currentArea);
     }
 }

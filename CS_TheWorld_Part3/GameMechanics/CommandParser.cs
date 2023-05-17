@@ -21,7 +21,8 @@ public static partial class Program
         {"look", ProcessLookCommand },
         {"get", GetItem },  
         {"fight", ProcessFightCommand },
-        {"cheat", command => _player.Stats.GainExp(50) }, 
+        {"cheat", command => _player.Stats.GainExp(1000) }, 
+        {"cheatSP", command => _player.SocialStats.changeSP(25)},
         {"go", ProcessGoCommand },
         {"backpack", CheckBackpack }
     };

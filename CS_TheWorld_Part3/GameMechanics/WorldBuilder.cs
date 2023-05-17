@@ -62,7 +62,8 @@ public static partial class Program
         };
         // Add the Moth to the area.
         start.AddCreature("moth", moth);
-
+        
+        
         var tundra = new Area()
         {
             Name = "The Tundra",
@@ -133,7 +134,7 @@ public static partial class Program
         // return the starting area.
         return start;
     }
-    
+
     /// <summary>
     /// Encapsulate all the basic things that need to happen when a creature is killed.
     /// Use this in the creature.Stats.PlayerDeath event handler.
