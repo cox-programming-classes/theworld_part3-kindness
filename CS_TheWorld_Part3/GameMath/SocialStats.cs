@@ -1,5 +1,7 @@
 namespace CS_TheWorld_Part3.GameMath;
 
+using static GameMechanics.TextFormatter;
+
 public class SocialStats
 {
     public uint Addiction { get; private set; }
@@ -14,10 +16,18 @@ public class SocialStats
     }
 
     public void changeAddiction(int num) => Addiction = Addiction + num < 0 ? 0 : (uint)(Addiction + num);
-    
-    public void changeSP(int num) => SocialPoints += num;
 
-    public void changeMH(int num) => MentalHealth += num;
+    public void changeSP(int num)
+    {
+        SocialPoints += num;
+        WriteLineNeutral($"{num} Social Points");
+    }
+
+    public void changeMH(int num)
+    {
+        MentalHealth += num;
+        WriteLineNeutral($"{num} Mental Health");
+    }
 
     /// <summary>
     /// Function bring sup mental health temporaryly after after a ceratin amounnt of time mh goes down

@@ -67,8 +67,7 @@ public static partial class Program
         {
             OnCreatureDeath("Kenna", Kenna,
                 $"{Kenna.Name} dies");
-            _player.SocialStats.changeSP(-5);
-            WriteLineNegative("-5 Social Points");
+            _player.SocialStats.changeSP(5);
         };
         Maine.AddCreature("Kenna", Kenna);
 
