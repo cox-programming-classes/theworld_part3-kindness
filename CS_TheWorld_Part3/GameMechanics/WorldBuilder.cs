@@ -136,9 +136,13 @@ public static partial class Program
         {
             Name = "Drug2",
             Description = "A place with more drugs."
+            
+            
         };
+        start.AddNeighboringArea(new ("above", "far above"), DrugAreaLevel2);
+        DrugAreaLevel2.AddNeighboringArea(new Direction("below", "far below"), DrugAreaLevel2);
+
         
-        var LSD = new LSD(100, )
         var LSDMonster = new Creature ()
         {
             Name = "LSD Monster",
@@ -146,24 +150,21 @@ public static partial class Program
             Items= new(new Dictionary<UniqueName, ICarryable>()
             {
                 {
-                    "LSD",
-                    StandardItems.LSD();
+                    "MonsterLSD", new LSD() 
                 }
-            Stats = new StatChart (30,10, new Dice(2,6), new Dice (2,6))
+                
+            }), 
+                
+                Stats = new StatChart (30,10, new Dice(2,6), new Dice (2,6))
 
         };
 
-        DrugAreaLevel2.AddCreature("LSD Monster", LSDMonster );
+       DrugAreaLevel2.AddCreature("LSD Monster", LSDMonster );
         
-        moth.Stats.Death += (sender, args) =>
-        {
-            OnCreatureDeath("moth", moth, 
-                $"{moth.Name} falls in a flutter of wings and ichor.");
-        };
         LSDMonster.Stats.Death += (sender, args) =>
         {
             OnCreatureDeath("LSD Monster", LSDMonster, $"{LSDMonster.Name} bursts into flames");
-            _player.AddtoInventoy ()
+            //add LSD to backpack 
         };
 
 

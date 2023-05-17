@@ -50,8 +50,33 @@ public static class StandardCreatures
         }
     }
     
-    
-    
+    public static Creature LSDMonster
+    {
+        get
+        {
+            var LSDMonster = new Creature ()
+            {
+                Name = "LSD Monster",
+                Description = "It is a LSD Monster",
+                Items= new(new Dictionary<UniqueName, ICarryable>()
+                {
+                    {
+                        "MonsterLSD", new LSD() 
+                    }
+                
+                }), 
+                
+                Stats = new StatChart (30,10, new Dice(2,6), new Dice (2,6))
+
+            };
+
+            return LSDMonster;
+        }
+        
+    }
+
+
+
 
 
 

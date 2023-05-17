@@ -5,6 +5,7 @@ using CS_TheWorld_Part3.GameMath;
 
 namespace CS_TheWorld_Part3;
 
+/*
 public static partial class Program
 {
     private static Area InitializeMaze()
@@ -22,7 +23,7 @@ public static partial class Program
                 }
                 
             }
-            */
+            
         };
 
         Creature Prince = new Creature()
@@ -31,9 +32,10 @@ public static partial class Program
             Description = "Holy shit that things huge!",
             Stats = new StatChart(12, 8, Dice.D20, new(1, 6, -1))
 
-            start.AddCreature("Prince Charming", Prince);
+         //   start.AddCreature("Prince Charming", Prince);
 
-        };
+       // };
+*/
     
         
 
