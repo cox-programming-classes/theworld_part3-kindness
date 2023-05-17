@@ -49,7 +49,7 @@ public static class Extensions
     {
         {
             WriteLineNeutral($"{area.Description}{Environment.NewLine}You see:");
-        
+
             if (area.Items.Any())
             {
                 foreach (UniqueName name in area.Items.Keys)
