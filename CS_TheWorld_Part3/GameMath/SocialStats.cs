@@ -27,7 +27,6 @@ public class SocialStats
     /// <param name="time">amount of time it take for mh to go down</param>
     public void changeMHTemporary(int firstValue, int downValue, int time)
     {
-        changeMH(firstValue);
         Console.WriteLine("up " + firstValue + "="+ MentalHealth);
         Thread thread = new(() => MHThread(downValue, time));
         thread.Start();
@@ -37,7 +36,6 @@ public class SocialStats
     {
         Thread.Sleep(time);
         changeMH(-down);
-        Console.WriteLine("down " +down+"="+ MentalHealth);
     }
     
 

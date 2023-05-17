@@ -27,8 +27,8 @@ public static partial class Program
                     "adderallstone",
                     Drug.StandardItems.Adderall
                 }
-            })
-            Stats = new StatChart(10, 5, new Dice(4,5), new (2, 1))
+            }),
+            Stats = new StatChart(20, 5, new Dice(2,5), new (2, 10))
         };
 
         AdderallMonster.Stats.Death += (sender, args) =>

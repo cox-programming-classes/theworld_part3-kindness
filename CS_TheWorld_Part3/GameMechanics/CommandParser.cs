@@ -85,7 +85,6 @@ public static partial class Program
     
     private static void ProcessGoCommand(Command command)
     {
-        _player.SocialStats.changeMHTemporary(5, 10, 100);
         if (command.Target == "")
         {
             WriteLineWarning("Go Where?");

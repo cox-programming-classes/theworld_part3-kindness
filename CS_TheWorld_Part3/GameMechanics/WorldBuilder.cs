@@ -127,8 +127,8 @@ public static partial class Program
         //maine
         Area Maine = InitializeMaine();
         
-        Maine.AddNeighboringArea(new Direction("north", "Up to the north"), start);
-        start.AddNeighboringArea(new Direction("south", "To the south"), Maine);
+        Maine.AddNeighboringArea(new Direction("southwest", "To the SouthWest"), start);
+        start.AddNeighboringArea(new Direction("northeast", "To the NorthEast"), Maine);
         
         // return the starting area.
         return start;
