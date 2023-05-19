@@ -62,64 +62,6 @@ public static partial class Program
         };
         // Add the Moth to the area.
         start.AddCreature("moth", moth);
-        
-        
-        var tundra = new Area()
-        {
-            Name = "The Tundra",
-            Description = "Cold, Barren Wasteland."
-        };
-
-        //Creates Adderall Monster
-        Creature AdderallMonster = new()
-        {
-            Name = "adderallmonster",
-            Description = "Allows you to fight the Adderall monster",
-            Stats = new StatChart(11, 3, Dice.D20, new(1, 4, -1)),
-            Backpack = new(new Dictionary<UniqueName, ICarryable>()
-            {
-                {
-                    "adderall",
-                    StandardItems.Adderall
-                }
-            })
-        };
-        AdderallMonster.Stats.Death += (sender, args) =>
-        {
-            OnCreatureDeath("adderallmonster", AdderallMonster, 
-                $"{AdderallMonster.Name} dies");
-        };
-
-        //Creates the Adderall Stone and then puts the Adderall Monster as what it makes
-        DrugStone AdderallStone = new()
-        {
-            Name = "Adderall Stone",
-            Description = "Allows you to fight the Adderall monster",
-            Weight = 2,
-            Place = _currentArea,
-            Monster= ("adderallmonster", AdderallMonster)
-        };
-        
-        //Creates Kenna as a creature-- once you defeat Kenna you get the Adderall Stone
-        Creature Kenna = new()
-        {
-            Name = "Kenna",
-            Description = "Its Kenna",
-            Stats = new StatChart(27, 3, Dice.D20, new(1, 6, -1)),
-            Backpack= new(new Dictionary<UniqueName, ICarryable>()
-            {
-                {
-                    "adderallstone",
-                    AdderallStone
-                }
-            }),
-        };
-        Kenna.Stats.Death += (sender, args) =>
-        {
-            OnCreatureDeath("Kenna", Kenna, 
-                $"{Kenna.Name} dies");
-        };
-        start.AddCreature("Kenna", Kenna);
 
         var salamander = new Creature()
         {
@@ -143,9 +85,6 @@ public static partial class Program
         
         start.AddCreature("salamander", salamander);
 
-        start.AddNeighboringArea(new ("tundra", "Go to tundra"), tundra);
-        tundra.AddNeighboringArea(new Direction("nj", "go to nj"), start);
-
         var planeOfFire = new Area()
         {
             Name = "Plane of Fire",
@@ -165,8 +104,7 @@ public static partial class Program
                 return false;
             }
         };
-
-
+        
         var DrugAreaLevel2 = new Area()
         {
             Name = "Drug2",
