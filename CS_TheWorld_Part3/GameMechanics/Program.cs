@@ -1,4 +1,5 @@
-﻿using CS_TheWorld_Part3.Areas;
+﻿using System.Runtime.CompilerServices;
+using CS_TheWorld_Part3.Areas;
 using CS_TheWorld_Part3.Creatures;
 using CS_TheWorld_Part3.GameMath;
 using CS_TheWorld_Part3.Items;
@@ -57,6 +58,10 @@ public static partial class Program
         
         WriteLinePositive("BYE!");
     }
+    
+    
+    
+    
     
     private static void PlayerHPChanged(object? sender, int e)
     {
