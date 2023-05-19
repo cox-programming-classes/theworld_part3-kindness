@@ -1,4 +1,5 @@
 
+using System.Security.Cryptography;
 using CS_TheWorld_Part3.GameMath;
 using CS_TheWorld_Part3.Items;
 
@@ -26,7 +27,7 @@ public static partial class Program
         {"go", ProcessGoCommand },
         {"backpack", CheckBackpack },
         { "use", ProsessUseCommand}
-    };
+};
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
     // TODO:  Add a `help` command that displays the list of allowed commands and describes how to use them [Easy]

@@ -135,6 +135,7 @@ public static partial class Program
             Stats = new(15, 12, Dice.D20, Dice.D6)
         };
 
+        
         // TODO:  Research!  This command is long... wtf is going on here, and why is it written this way? [Moderate]
         salamander.Stats.Death += (sender, args) =>
             OnCreatureDeath("salamander", salamander,
@@ -164,6 +165,45 @@ public static partial class Program
                 return false;
             }
         };
+
+
+        var DrugAreaLevel2 = new Area()
+        {
+            Name = "Drug2",
+            Description = "A place with more drugs."
+            
+            
+        };
+        start.AddNeighboringArea(new ("above", "far above"), DrugAreaLevel2);
+        DrugAreaLevel2.AddNeighboringArea(new Direction("below", "far below"), DrugAreaLevel2);
+
+        
+        var LSDMonster = new Creature ()
+        {
+            Name = "lsdmonster",
+            Description = "It is a LSD Monster",
+            Items= new(new Dictionary<UniqueName, ICarryable>()
+            {
+                {
+                    "monsterlsd",  StandardItems.MonsterLSD
+                }
+                
+            }), 
+                
+                Stats = new StatChart (30,10, new Dice(2,6), new Dice (2,6))
+
+        };
+
+       DrugAreaLevel2.AddCreature("lsdmonster", LSDMonster );
+        
+        LSDMonster.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("lsdmonster", LSDMonster, $"{LSDMonster.Name} bursts into flames");
+            //add LSD to backpack 
+        };
+
+
+
 
         // TODO:  This Mechanic of creating a creature then applying the death event is clunky [Extremely Difficult]
         //        Can you make it better?  
