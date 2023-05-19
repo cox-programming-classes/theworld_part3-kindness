@@ -80,7 +80,7 @@ public static partial class Program
             {
                 {
                     "adderall",
-                    Drug.StandardItems.Adderall
+                    StandardItems.Adderall
                 }
             })
         };
@@ -129,7 +129,7 @@ public static partial class Program
             {   
                 {
                     "firestone", 
-                    Drug.StandardItems.FireStone
+                    StandardItems.FireStone
                 }
             }),
             Stats = new(15, 12, Dice.D20, Dice.D6)
@@ -182,7 +182,7 @@ public static partial class Program
         {
             Name = "lsdmonster",
             Description = "It is a LSD Monster",
-            Items= new(new Dictionary<UniqueName, ICarryable>()
+            Backpack= new(new Dictionary<UniqueName, ICarryable>()
             {
                 {
                     "monsterlsd",  StandardItems.MonsterLSD

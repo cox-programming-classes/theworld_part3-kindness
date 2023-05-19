@@ -36,7 +36,7 @@ public static class StandardCreatures
                 Name = "POSSUM",
                 Description = "It's a possum",
                 Stats = new(24, 12, Dice.D20, new Dice (2,6)),
-                Items = new (new Dictionary<UniqueName,ICarryable>()
+                Backpack = new (new Dictionary<UniqueName,ICarryable>()
                 {
                 
                 {"firestone", new KeyStone()}
@@ -58,10 +58,10 @@ public static class StandardCreatures
             {
                 Name = "lsdmonster",
                 Description = "It is a LSD Monster",
-                Items= new(new Dictionary<UniqueName, ICarryable>()
+                Backpack = new(new Dictionary<UniqueName, ICarryable>()
                 {
                     {
-                        "MonsterLSD", new Drugs () 
+                        "MonsterLSD", new Drug () 
                     }
                 
                 }), 
