@@ -80,7 +80,7 @@ public static partial class Program
             {
                 {
                     "adderall",
-                    Drug.StandardItems.Adderall
+                    StandardItems.Adderall
                 }
             })
         };
@@ -129,7 +129,7 @@ public static partial class Program
             {   
                 {
                     "firestone", 
-                    Drug.StandardItems.FireStone
+                    StandardItems.FireStone
                 }
             }),
             Stats = new(15, 12, Dice.D20, Dice.D6)
@@ -142,8 +142,8 @@ public static partial class Program
         
         start.AddCreature("salamander", salamander);
 
-        start.AddNeighboringArea(new ("north", "Far to the North"), tundra);
-        tundra.AddNeighboringArea(new Direction("south", "Far to the South"), start);
+        start.AddNeighboringArea(new ("tundra", "Go to tundra"), tundra);
+        tundra.AddNeighboringArea(new Direction("nj", "go to nj"), start);
 
         var planeOfFire = new Area()
         {
@@ -181,6 +181,11 @@ public static partial class Program
         
         Maine.AddNeighboringArea(new Direction("southwest", "To the SouthWest"), start);
         start.AddNeighboringArea(new Direction("northeast", "To the NorthEast"), Maine);
+        
+        Area Texas = InitializeTexas();
+        
+        Texas.AddNeighboringArea(new Direction("nj", "To New jersey"), start);
+        start.AddNeighboringArea(new Direction("texas", "To texas"), Texas);
         
         // return the starting area.
         return start;

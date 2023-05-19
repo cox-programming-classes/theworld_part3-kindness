@@ -37,28 +37,35 @@ public class Drug : Item, ICarryable, IUsable
 {
     public string Type { get; init; }
     public int Weight { get; init; }
+}
 
 // TODO:  Create a specialized item that can be USED to Heal the player [Moderate]
-
-    public static class StandardItems
+    
+public static class StandardItems
+{
+    /// <summary>
+    /// A reusable instance of a KeyStone 
+    /// </summary>
+    public static KeyStone FireStone => new()
     {
-        /// <summary>
-        /// A reusable instance of a KeyStone 
-        /// </summary>
-        public static KeyStone FireStone => new()
-        {
-            Name = "Fire Stone",
-            Description = "A stone that glows bright orange and is warm to the touch.",
-            Weight = 1
-        };
+        Name = "Fire Stone",
+        Description = "A stone that glows bright orange and is warm to the touch.",
+        Weight = 1
+    };
 
-        public static Drug Adderall => new()
-        {
-            Name = "Adderall",
-            Description = "Focus in a pill",
-            Weight = 1
-        };
+    public static Drug Adderall => new()
+    {
+        Name = "Adderall",
+        Description = "Focus in a pill",
+        Weight = 1
+    };
 
-        // TODO:  Create more cookie-cutter items that you can initialize at will
-    }
+    public static KeyStone CowboyBoots => new()
+    {
+        Name = "Cowboy Boots",
+        Description = "Brown leather, adds 2 inches to your height",
+        Weight = 3
+    };
+
+    // TODO:  Create more cookie-cutter items that you can initialize at will
 }
