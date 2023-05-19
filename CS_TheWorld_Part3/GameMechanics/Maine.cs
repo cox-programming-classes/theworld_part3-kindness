@@ -25,7 +25,7 @@ public static partial class Program
             {
                 {
                     "adderallstone",
-                    StandardItems.Adderall
+                    Drugs.Adderall
                 }
             }),
             Stats = new StatChart(20, 5, new Dice(2,5), new (2, 10))

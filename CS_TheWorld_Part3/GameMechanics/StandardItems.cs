@@ -43,14 +43,17 @@ public class Drug : Item, ICarryable, IUsable
     public int Weight { get; init; }
 
     public int HealthImpact { get; init; }
+
     public string UseOn(object target)
     {
         if (target is Player player)
+        {
             player.Stats.ChangeHP(HealthImpact);
+        }
+            
         //also change social points, mental health, etc.
 
         return $"On Who??";
-
     }
 }
 
@@ -86,14 +89,7 @@ public static class StandardItems
         Description = "A stone that glows bright orange and is warm to the touch.",
         Weight = 1
     };
-
-    public static Drug Adderall => new()
-    {
-        Name = "Adderall",
-        Description = "Focus in a pill",
-        Weight = 1
-    };
-
+    
     public static KeyStone CowboyBoots => new()
     {
         Name = "Cowboy Boots",
@@ -101,15 +97,29 @@ public static class StandardItems
         Weight = 3
     };
 
-    // TODO:  Create more cookie-cutter items that you can initialize at will
+}
 
-    public static Drug MonsterLSD => new()
+public static class Drugs
+{
+    public static Drug Adderall => new()
     {
+        Name = "Adderall",
+        Description = "Focus in a pill",
+        Weight = 1,
+    };
+        
+    public static Drug LSD => new() {
         Name = "Monster LSD",
         Description = "It is LSD",
         Weight = 1,
         HealthImpact = -4
     };
-
+    
+    public static Drug Cocaine => new()
+    {
+        Name = "Cocaine",
+        Description = "its fanct drugs",
+        Weight = 1,
+        HealthImpact = -4
+    };
 }
-

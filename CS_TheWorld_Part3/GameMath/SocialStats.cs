@@ -4,7 +4,6 @@ using static GameMechanics.TextFormatter;
 
 public class SocialStats
 {
-    
     public event EventHandler SocialStarStatus;
 
     public uint Addiction { get; private set; }
@@ -55,7 +54,4 @@ public class SocialStats
         Thread.Sleep(time);
         changeMH(-down);
     }
-    
-
-
 }
