@@ -42,14 +42,17 @@ public class Drug : Item, ICarryable, IUsable
     public string Type { get; init; }
     public int Weight { get; init; }
     public int HealthImpact { get; init; }
+
     public string UseOn(object target)
     {
         if (target is Player player)
+        {
             player.Stats.ChangeHP(HealthImpact);
+        }
+            
         //also change social points, mental health, etc.
 
         return $"On Who??";
-
     }
 }
 
@@ -87,19 +90,30 @@ public class MagicWand : Item, IUsable, ICarryable
             Weight = 1
         };
 
-        public static Drug Adderall => new()
-        {
-            Name = "Adderall",
-            Description = "Focus in a pill",
-            Weight = 1
-        };
-        
-        public static Drug MonsterLSD => new()
-        {
-            Name = "Monster LSD",
-            Description = "It is LSD",
-            Weight = 1,
-            HealthImpact = -4
-        };
-
     }
+
+public static class Drugs
+{
+    public static Drug Adderall => new()
+    {
+        Name = "Adderall",
+        Description = "Focus in a pill",
+        Weight = 1,
+    };
+        
+    public static Drug LSD => new()
+    {
+        Name = "Monster LSD",
+        Description = "It is LSD",
+        Weight = 1,
+        HealthImpact = -4
+    };
+    
+    public static Drug Cocaine => new()
+    {
+        Name = "Cocaine",
+        Description = "its fanct drugs",
+        Weight = 1,
+        HealthImpact = -4
+    };
+}

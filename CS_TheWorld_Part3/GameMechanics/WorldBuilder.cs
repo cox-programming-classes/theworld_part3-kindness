@@ -80,7 +80,7 @@ public static partial class Program
             {
                 {
                     "adderall",
-                    StandardItems.Adderall
+                    Drugs.Adderall
                 }
             })
         };
@@ -160,51 +160,13 @@ public static partial class Program
                     player.Stats.ChangeHP(-Dice.D4.Roll());
                     return true;
                 }
-                
+
                 WriteLinePositive("The flames of the portal part for you");
                 return false;
             }
         };
 
-
-        var DrugAreaLevel2 = new Area()
-        {
-            Name = "Drug2",
-            Description = "A place with more drugs."
-            
-            
-        };
-        start.AddNeighboringArea(new ("above", "far above"), DrugAreaLevel2);
-        DrugAreaLevel2.AddNeighboringArea(new Direction("below", "far below"), DrugAreaLevel2);
-
         
-        var LSDMonster = new Creature ()
-        {
-            Name = "lsdmonster",
-            Description = "It is a LSD Monster",
-            Backpack= new(new Dictionary<UniqueName, ICarryable>()
-            {
-                {
-                    "monsterlsd",  StandardItems.MonsterLSD
-                }
-                
-            }), 
-                
-                Stats = new StatChart (30,10, new Dice(2,6), new Dice (2,6))
-
-        };
-
-       DrugAreaLevel2.AddCreature("lsdmonster", LSDMonster );
-        
-        LSDMonster.Stats.Death += (sender, args) =>
-        {
-            OnCreatureDeath("lsdmonster", LSDMonster, $"{LSDMonster.Name} bursts into flames");
-            //add LSD to backpack 
-        };
-
-
-
-
         // TODO:  This Mechanic of creating a creature then applying the death event is clunky [Extremely Difficult]
         //        Can you make it better?  
         var firebird = StandardCreatures.FireBird;
@@ -221,6 +183,11 @@ public static partial class Program
         
         Maine.AddNeighboringArea(new Direction("southwest", "go back to start area: "), start);
         start.AddNeighboringArea(new Direction("northeast", "go to maine: "), Maine);
+        
+        //drug area 
+        Area DrugArea = InitializeDrugArea();
+        start.AddNeighboringArea(new Direction("lasvegas", "go to drug world in "), DrugArea);
+        DrugArea.AddNeighboringArea(new Direction("newjersey", "go back to start area in"), start);
         
         // return the starting area.
         return start;
