@@ -26,23 +26,6 @@ public static partial class Program
             Name = "This Place",
             Description = "A barren plane with an ambient temperature around 22C and moderate humidity."
         };
-        
-        
-        
-        /*
-        
-        var possum Creature =  StandardCreatures.Marsupial;
-        
-        possum.Stats.Death += (sender, args) =>
-        {
-            OnCreatureDeath("possum", possum, 
-                $"the soup is ready");
-        };
-        
-        start.AddCreature("possum", possum);
-        
-        */
-            
 
         // Add an item directly into the area.
         // by creating the item directly inside this statement,
@@ -145,12 +128,12 @@ public static partial class Program
         
         var LSDMonster = new Creature ()
         {
-            Name = "LSD Monster",
+            Name = "lsdmonster",
             Description = "It is a LSD Monster",
             Items= new(new Dictionary<UniqueName, ICarryable>()
             {
                 {
-                    "MonsterLSD", new LSD() 
+                    "monsterlsd",  StandardItems.MonsterLSD
                 }
                 
             }), 
@@ -159,11 +142,11 @@ public static partial class Program
 
         };
 
-       DrugAreaLevel2.AddCreature("LSD Monster", LSDMonster );
+       DrugAreaLevel2.AddCreature("lsdmonster", LSDMonster );
         
         LSDMonster.Stats.Death += (sender, args) =>
         {
-            OnCreatureDeath("LSD Monster", LSDMonster, $"{LSDMonster.Name} bursts into flames");
+            OnCreatureDeath("lsdmonster", LSDMonster, $"{LSDMonster.Name} bursts into flames");
             //add LSD to backpack 
         };
 

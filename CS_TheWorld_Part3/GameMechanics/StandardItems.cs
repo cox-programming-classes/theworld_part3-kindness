@@ -53,13 +53,14 @@ public class MagicWand : Item, IUsable, ICarryable
 
 }
 
-public class LSD : Item, IUsable, ICarryable
+public class Drugs : Item, IUsable, ICarryable
 {
     public int Weight { get; init; }
+    public int HealthImpact { get; init; }
     public string UseOn(object target)
     {
         if (target is Player player)
-            player.Stats.ChangeHP(-4);
+            player.Stats.ChangeHP(HealthImpact);
             //also change social points, mental health, etc.
 
             return $"On Who??";
@@ -86,11 +87,12 @@ public static class StandardItems
         Weight = 1
     };
     
-    public static LSD MonsterLSD => new()
+    public static Drugs MonsterLSD => new()
     {
         Name = "Monster LSD",
         Description = "It is LSD",
-        Weight = 1
+        Weight = 1,
+        HealthImpact = -4
         
 
     };

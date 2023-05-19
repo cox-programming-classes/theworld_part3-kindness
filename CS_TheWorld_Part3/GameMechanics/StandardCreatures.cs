@@ -50,18 +50,18 @@ public static class StandardCreatures
         }
     }
     
-    public static Creature LSDMonster
+    public static Creature DrugMonster
     {
         get
         {
-            var LSDMonster = new Creature ()
+            var drugmonster = new Creature ()
             {
-                Name = "LSD Monster",
+                Name = "lsdmonster",
                 Description = "It is a LSD Monster",
                 Items= new(new Dictionary<UniqueName, ICarryable>()
                 {
                     {
-                        "MonsterLSD", new LSD() 
+                        "MonsterLSD", new Drugs () 
                     }
                 
                 }), 
@@ -70,7 +70,7 @@ public static class StandardCreatures
 
             };
 
-            return LSDMonster;
+            return drugmonster;
         }
         
     }
