@@ -70,6 +70,57 @@ public static partial class Program
             Description = "Cold, Barren Wasteland."
         };
 
+        //Creates Adderall Monster
+        Creature AdderallMonster = new()
+        {
+            Name = "adderallmonster",
+            Description = "Allows you to fight the Adderall monster",
+            Stats = new StatChart(11, 3, Dice.D20, new(1, 4, -1)),
+            Backpack = new(new Dictionary<UniqueName, ICarryable>()
+            {
+                {
+                    "adderall",
+                    StandardItems.Adderall
+                }
+            })
+        };
+        AdderallMonster.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("adderallmonster", AdderallMonster, 
+                $"{AdderallMonster.Name} dies");
+        };
+
+        //Creates the Adderall Stone and then puts the Adderall Monster as what it makes
+        DrugStone AdderallStone = new()
+        {
+            Name = "Adderall Stone",
+            Description = "Allows you to fight the Adderall monster",
+            Weight = 2,
+            Place = _currentArea,
+            Monster= ("adderallmonster", AdderallMonster)
+        };
+        
+        //Creates Kenna as a creature-- once you defeat Kenna you get the Adderall Stone
+        Creature Kenna = new()
+        {
+            Name = "Kenna",
+            Description = "Its Kenna",
+            Stats = new StatChart(27, 3, Dice.D20, new(1, 6, -1)),
+            Backpack= new(new Dictionary<UniqueName, ICarryable>()
+            {
+                {
+                    "adderallstone",
+                    AdderallStone
+                }
+            }),
+        };
+        Kenna.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("Kenna", Kenna, 
+                $"{Kenna.Name} dies");
+        };
+        start.AddCreature("Kenna", Kenna);
+
         var salamander = new Creature()
         {
             Name="Salamander",
@@ -78,12 +129,13 @@ public static partial class Program
             {   
                 {
                     "firestone", 
-                    Drug.StandardItems.FireStone
+                    StandardItems.FireStone
                 }
             }),
             Stats = new(15, 12, Dice.D20, Dice.D6)
         };
 
+        
         // TODO:  Research!  This command is long... wtf is going on here, and why is it written this way? [Moderate]
         salamander.Stats.Death += (sender, args) =>
             OnCreatureDeath("salamander", salamander,
@@ -113,6 +165,45 @@ public static partial class Program
                 return false;
             }
         };
+
+
+        var DrugAreaLevel2 = new Area()
+        {
+            Name = "Drug2",
+            Description = "A place with more drugs."
+            
+            
+        };
+        start.AddNeighboringArea(new ("above", "far above"), DrugAreaLevel2);
+        DrugAreaLevel2.AddNeighboringArea(new Direction("below", "far below"), DrugAreaLevel2);
+
+        
+        var LSDMonster = new Creature ()
+        {
+            Name = "lsdmonster",
+            Description = "It is a LSD Monster",
+            Backpack= new(new Dictionary<UniqueName, ICarryable>()
+            {
+                {
+                    "monsterlsd",  StandardItems.MonsterLSD
+                }
+                
+            }), 
+                
+                Stats = new StatChart (30,10, new Dice(2,6), new Dice (2,6))
+
+        };
+
+       DrugAreaLevel2.AddCreature("lsdmonster", LSDMonster );
+        
+        LSDMonster.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("lsdmonster", LSDMonster, $"{LSDMonster.Name} bursts into flames");
+            //add LSD to backpack 
+        };
+
+
+
 
         // TODO:  This Mechanic of creating a creature then applying the death event is clunky [Extremely Difficult]
         //        Can you make it better?  

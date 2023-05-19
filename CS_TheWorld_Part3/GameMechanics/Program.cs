@@ -1,6 +1,8 @@
-﻿using CS_TheWorld_Part3.Areas;
+﻿using System.Runtime.CompilerServices;
+using CS_TheWorld_Part3.Areas;
 using CS_TheWorld_Part3.Creatures;
 using CS_TheWorld_Part3.GameMath;
+using CS_TheWorld_Part3.Items;
 
 namespace CS_TheWorld_Part3.GameMechanics;
 
@@ -57,6 +59,10 @@ public static partial class Program
         WriteLinePositive("BYE!");
     }
     
+    
+    
+    
+    
     private static void PlayerHPChanged(object? sender, int e)
     {
         if (e == 0)
@@ -79,11 +85,30 @@ public static partial class Program
     {
         WriteLinePositive($"Congratz You're now Level {_player.Stats.Level}");
     }
-
+    
     public static void SocialStatus(object? sender, EventArgs e)
     {
         Area BandBattle = InitializeBandBattle();
         _currentArea.AddNeighboringArea(new Direction("band", "to go the"), BandBattle);
         BandBattle.AddNeighboringArea(new Direction("back", "go"), _currentArea);
+    }
+    
+    public class DrugStone : Item, ICarryable, IUsable
+    {
+        public Area Place { get; init; }
+        public (string, Creature) Monster { get; init; }
+        public int Weight { get; init; }
+
+        /// <summary>
+        /// Becareful what you use this on!
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public string Use()
+        {
+            _currentArea.AddCreature(Monster.Item1, Monster.Item2);
+// needs to have a property that is the area that the monster goes into. So you can insert the monster into the area. 
+            return "The Drug monster has appeared";
+        }
     }
 }

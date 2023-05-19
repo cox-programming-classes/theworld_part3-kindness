@@ -62,6 +62,22 @@ public class Player : ICreature
     private Dictionary<UniqueName, ICarryable> _items = new();
     public ReadOnlyDictionary<UniqueName, ICarryable> Backpack => _items.AsReadOnly();
 
+    public List<Item> Inventory = new List<Item>();
+
+    public void AddToInventory(Item i)
+    {
+      Inventory.Add(i);
+    }
+    
+    
+    
+    
+    
+    public void GetAnItem(IEquipable i)
+    {
+        
+        
+    }
     
     /* TODO:  Write Behaviors that allow the player to access their Items.
               i.e PickUp an item and add it to the inventory, [Easy]

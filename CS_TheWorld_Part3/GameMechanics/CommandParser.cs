@@ -1,4 +1,5 @@
 
+using System.Security.Cryptography;
 using CS_TheWorld_Part3.GameMath;
 using CS_TheWorld_Part3.Items;
 
@@ -24,8 +25,9 @@ public static partial class Program
         {"cheat", command => _player.Stats.GainExp(1000) }, 
         {"cheatSP", command => _player.SocialStats.changeSP(25)},
         {"go", ProcessGoCommand },
-        {"backpack", CheckBackpack }
-    };
+        {"backpack", CheckBackpack },
+        { "use", ProsessUseCommand}
+};
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
     // TODO:  Add a `help` command that displays the list of allowed commands and describes how to use them [Easy]
@@ -149,6 +151,39 @@ public static partial class Program
             // the ! in this line means I'm certain that this item isn't null.
             if (_currentArea.HasCreature(cmd.Target))
                 _currentArea.GetCreature(cmd.Target)!.LookAt();
+        }
+    }
+
+    private static void ProsessUseCommand(Command command)
+    {
+        if (command.Target == "")
+        {
+            WriteLineNeutral("Use on what?");
+        }
+
+        else
+        {
+            if (_player.HasItem(command.Target))
+            {
+                var Item = _player.GetItem(command.Target);
+                if (Item is IUsable useableitem)
+                {
+                    if (command.SecondaryTarget == "")
+                    {
+                        useableitem.Use();
+                    }
+
+                    else
+                    {
+                        if (_currentArea.HasItem (command.SecondaryTarget))
+                        {
+                            useableitem.UseOn(command.SecondaryTarget);
+                        }
+                    }
+
+                }
+                
+            }
         }
     }
 }
