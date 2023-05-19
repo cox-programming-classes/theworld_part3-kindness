@@ -41,6 +41,7 @@ public class Drug : Item, ICarryable, IUsable
 {
     public string Type { get; init; }
     public int Weight { get; init; }
+
     public int HealthImpact { get; init; }
 
     public string UseOn(object target)
@@ -75,22 +76,28 @@ public class MagicWand : Item, IUsable, ICarryable
 
 }
 
-
 // TODO:  Create a specialized item that can be USED to Heal the player [Moderate]
 
-    public static class StandardItems
+public static class StandardItems
+{
+    /// <summary>
+    /// A reusable instance of a KeyStone 
+    /// </summary>
+    public static KeyStone FireStone => new()
     {
-        /// <summary>
-        /// A reusable instance of a KeyStone 
-        /// </summary>
-        public static KeyStone FireStone => new()
-        {
-            Name = "Fire Stone",
-            Description = "A stone that glows bright orange and is warm to the touch.",
-            Weight = 1
-        };
+        Name = "Fire Stone",
+        Description = "A stone that glows bright orange and is warm to the touch.",
+        Weight = 1
+    };
+    
+    public static KeyStone CowboyBoots => new()
+    {
+        Name = "Cowboy Boots",
+        Description = "Brown leather, adds 2 inches to your height",
+        Weight = 3
+    };
 
-    }
+}
 
 public static class Drugs
 {
@@ -101,8 +108,7 @@ public static class Drugs
         Weight = 1,
     };
         
-    public static Drug LSD => new()
-    {
+    public static Drug LSD => new() {
         Name = "Monster LSD",
         Description = "It is LSD",
         Weight = 1,

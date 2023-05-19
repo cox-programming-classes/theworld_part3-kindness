@@ -143,8 +143,8 @@ public static partial class Program
         
         start.AddCreature("salamander", salamander);
 
-        start.AddNeighboringArea(new ("north", "Far to the North"), tundra);
-        tundra.AddNeighboringArea(new Direction("south", "Far to the South"), start);
+        start.AddNeighboringArea(new ("tundra", "Go to tundra"), tundra);
+        tundra.AddNeighboringArea(new Direction("nj", "go to nj"), start);
 
         var planeOfFire = new Area()
         {
@@ -188,6 +188,11 @@ public static partial class Program
         Area DrugArea = InitializeDrugArea();
         start.AddNeighboringArea(new Direction("lasvegas", "go to drug world in "), DrugArea);
         DrugArea.AddNeighboringArea(new Direction("newjersey", "go back to start area in"), start);
+
+        Area Texas = InitializeTexas();
+        
+        Texas.AddNeighboringArea(new Direction("nj", "To New jersey"), start);
+        start.AddNeighboringArea(new Direction("texas", "To texas"), Texas);
         
         // return the starting area.
         return start;
