@@ -21,7 +21,8 @@ public static partial class Program
         {"look", ProcessLookCommand },
         {"get", GetItem },  
         {"fight", ProcessFightCommand },
-        {"cheat", command => _player.Stats.GainExp(50) }, 
+        {"cheat", command => _player.Stats.GainExp(1000) }, 
+        {"cheatSP", command => _player.SocialStats.changeSP(25)},
         {"go", ProcessGoCommand },
         {"backpack", CheckBackpack },
         { "use", ProsessUseCommand}
@@ -86,7 +87,6 @@ public static partial class Program
     
     private static void ProcessGoCommand(Command command)
     {
-        _player.SocialStats.changeMHTemporary(5, 10, 100);
         if (command.Target == "")
         {
             WriteLineWarning("Go Where?");
@@ -132,7 +132,6 @@ public static partial class Program
             return;
         }
         
-        WriteLineWarning("Gotta write that code yet....");
         var target = _currentArea.GetCreature(command.Target)!;
         DoBattle(target);
     }

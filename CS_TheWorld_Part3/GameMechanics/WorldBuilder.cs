@@ -62,13 +62,14 @@ public static partial class Program
         };
         // Add the Moth to the area.
         start.AddCreature("moth", moth);
-
+        
+        
         var tundra = new Area()
         {
             Name = "The Tundra",
             Description = "Cold, Barren Wasteland."
         };
-        
+
         //Creates Adderall Monster
         Creature AdderallMonster = new()
         {
@@ -119,7 +120,6 @@ public static partial class Program
                 $"{Kenna.Name} dies");
         };
         start.AddCreature("Kenna", Kenna);
-
 
         var salamander = new Creature()
         {
@@ -176,10 +176,16 @@ public static partial class Program
         
         start.AddNeighboringArea(new("portal", "a Firey portal"), planeOfFire);
         
+        //maine
+        Area Maine = InitializeMaine();
+        
+        Maine.AddNeighboringArea(new Direction("southwest", "To the SouthWest"), start);
+        start.AddNeighboringArea(new Direction("northeast", "To the NorthEast"), Maine);
+        
         // return the starting area.
         return start;
     }
-    
+
     /// <summary>
     /// Encapsulate all the basic things that need to happen when a creature is killed.
     /// Use this in the creature.Stats.PlayerDeath event handler.
